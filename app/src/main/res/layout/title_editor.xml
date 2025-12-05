@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+
+    android:paddingBottom="6dip">
+
+    <EditText android:id="@+id/title"
+        android:maxLines="1"
+
+        android:layout_marginTop="5dp"
+
+        android:layout_marginBottom="10dp"
+
+        android:layout_width="wrap_content"
+
+        android:ems="30"
+
+        android:layout_height="wrap_content"
+        android:autoText="true"
+        android:capitalize="sentences"
+        android:scrollHorizontally="true" />
+
+    <Button android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="@string/button_ok"
+        android:onClick="onClickOk" />
+
+</LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+
+    android:background="#FFFFDDDD">
+
+    <TextView
+        android:id="@android:id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="#2196F3"
+
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/timestamp_text"
+        android:layout_toStartOf="@+id/timestamp_text"
+        android:paddingRight="8dp" />
+
+    <TextView
+        android:id="@+id/timestamp_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FF0088AA"
+
+        android:singleLine="true" />
+
+</RelativeLayout>
