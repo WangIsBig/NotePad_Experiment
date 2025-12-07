@@ -20,7 +20,7 @@
 
     android:paddingRight="4dp"
 
-    android:textColor="#FF00BCD4" />
+    android:textColor="#000000" />
 
     <TextView
         android:id="@+id/text_category_title"
@@ -28,5 +28,5 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
 
-        android:textColor="#FF6200EE" />
+        android:textColor="#000000" />
 </LinearLayout>

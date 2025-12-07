@@ -379,9 +379,12 @@ public class NotesList extends ListActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        if (mCursor != null) {
-//            mCursor.requery();
-//        }
+
+        if (mCursor != null) {
+            stopManagingCursor(mCursor);
+            mCursor = null; // 置空，确保 loadNotes 会重新创建游标
+        }
+
         loadNotes(mCurrentKeyword);
     }
 

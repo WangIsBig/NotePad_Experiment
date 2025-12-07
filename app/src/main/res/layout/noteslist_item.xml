@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:orientation="vertical"
-    android:gravity="center_vertical"
-    android:paddingLeft="5dip"
-    android:paddingRight="5dip"
-
-    android:background="#FFFFF0B5"> <TextView
-    android:id="@android:id/text1"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:textColor="#FFC000C0"
-
-    android:gravity="center_vertical"
-    android:singleLine="true"
-    android:ellipsize="end" />
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="#FFFFF0B5">
 
     <TextView
-        android:id="@+id/text_timestamp"
+        android:id="@android:id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#FF0088AA"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="6dp"
 
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#0B0B0B"
         android:singleLine="true"
-        android:ellipsize="end"
-        android:paddingTop="2dp" />
-</LinearLayout>
+        android:ellipsize="end" />
+
+    <TextView
+        android:id="@+id/text_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="6dp"
+
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000000"
+        android:singleLine="true"
+        android:ellipsize="end" />
+
+</RelativeLayout>

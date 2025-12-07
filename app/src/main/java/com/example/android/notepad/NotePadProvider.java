@@ -572,16 +572,31 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
         // 5. 执行插入操作
         if (match == CATEGORIES) {
             // 插入 CATEGORIES：此时 values 只有 NAME 字段（如果 NoteMetadataStore 构造正确）
-            long rowId = db.insert(
+            long rowId = db.insertWithOnConflict(
                     NotePad.Categories.TABLE_NAME,
-                    NotePad.Categories.COLUMN_NAME_NAME, // 允许 ContentValues 为空时插入 null
-                    values
+                    NotePad.Categories.COLUMN_NAME_NAME,
+                    values,
+                    SQLiteDatabase.CONFLICT_IGNORE
             );
+
+            // 【关键通知】：无论分类是新创建 (rowId > 0) 还是冲突被忽略 (rowId == -1)，
+            // 只要有尝试对分类进行操作，就通知笔记列表 URI，强制刷新 NotesList。
+            getContext().getContentResolver().notifyChange(NotePad.Notes.CONTENT_URI, null);
+
             if (rowId > 0) {
+                // 新行插入成功
                 Uri catUri = ContentUris.withAppendedId(NotePad.Categories.CONTENT_ID_URI_BASE, rowId);
+                // 通知分类自身的 URI
                 getContext().getContentResolver().notifyChange(catUri, null);
                 return catUri;
             }
+
+            if (rowId == -1) {
+                // 冲突被忽略 (已存在同名分类)，返回 null 表示成功处理但没有插入新数据。
+                return null;
+            }
+
+            // 实际插入失败 (rowId < -1 或 0)
             throw new SQLException("Failed to insert row into " + uri);
 
         } else { // match == NOTES
@@ -709,6 +724,12 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
         int count;
         String finalWhere;
 
+        if (values == null) {
+            values = new ContentValues();
+        }
+
+        values.put(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE, System.currentTimeMillis());
+
         // Does the update based on the incoming URI pattern
         switch (sUriMatcher.match(uri)) {
 
@@ -792,6 +813,11 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
          * and observers that have registered themselves for the provider are notified.
          */
         getContext().getContentResolver().notifyChange(uri, null);
+
+        if (sUriMatcher.match(uri) == CATEGORIES || sUriMatcher.match(uri) == CATEGORY_ID) {
+            // 强制通知笔记列表 URI，让 NotesList 知道要刷新
+            getContext().getContentResolver().notifyChange(NotePad.Notes.CONTENT_URI, null);
+        }
 
         // Returns the number of rows updated.
         return count;
